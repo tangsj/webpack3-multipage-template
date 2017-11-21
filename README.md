@@ -1,4 +1,4 @@
-##webpack3多页面配置说明
+# webpack3多页面配置说明
 
 此项目适用于webpack的多页面及单页面开发，项目地址[https://github.com/tangsj/webpack3-multipage-demo](https://github.com/tangsj/webpack3-multipage-demo)
 , 本文主要介绍一下配置过程中的一些关键点
