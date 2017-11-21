@@ -1,0 +1,43 @@
+{
+  "name": "extend",
+  "version": "1.0.0",
+  "description": "产品推广项目",
+  "main": "index.js",
+  "scripts": {
+    "ds": "node_modules/.bin/webpack-dashboard -- cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.js",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.js",
+    "build": "cross-env NODE_ENV=production node_modules/.bin/webpack --config webpack.prod.js"
+  },
+  "author": "tangsj",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^7.1.6",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.17",
+    "cross-env": "^5.1.1",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.5",
+    "html-webpack-plugin": "^2.30.1",
+    "postcss-import": "^11.0.0",
+    "postcss-loader": "^2.0.8",
+    "style-loader": "^0.19.0",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.8.1",
+    "webpack-dashboard": "^1.0.2",
+    "webpack-dev-server": "^2.9.4",
+    "webpack-merge": "^4.1.1"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "lodash": "^4.17.4"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}

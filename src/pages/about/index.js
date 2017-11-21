@@ -1,0 +1,20 @@
+
+import _ from 'lodash';
+import './index.css';
+import m from './page_module';
+import c from '@c/comp';
+
+/* comments test */
+const pageName = "page about hot";
+
+function print() {
+  console.log(_.trim(pageName));
+}
+print();
+
+m();
+c();
+
+if (module.hot) { 
+  module.hot.accept();
+}
