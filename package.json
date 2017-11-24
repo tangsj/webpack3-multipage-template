@@ -1,5 +1,5 @@
 {
-  "name": "webpack3-multipage-demo",
+  "name": "webpack3-multipage-template",
   "version": "1.0.0",
   "description": "webpack3多页面开发项目配置",
   "main": "index.js",

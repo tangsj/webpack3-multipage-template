@@ -22,7 +22,7 @@ const config = {
     inline: true,
     historyApiFallback: true,
     open: true,
-    openPage: 'pages/about/index.html',
+    openPage: 'pages/home/index.html',
     //  http-proxy-middleware
     proxy: {},
   },
