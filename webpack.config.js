@@ -57,7 +57,6 @@ const commonChunks = []; // 自定义组件
   });
 }(componentsRoot);
 
-console.log(commonChunks);
 const config = {
   // 入口
   entry: Object.assign(pageEntry, {
