@@ -8,10 +8,12 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const pagesRoot = './src/pages';
+const componentsRoot = './src/components';
 const env = process.env.NODE_ENV;
 
 const pageEntry = {}; // 页面入口
 const pageHtml = [];  // 页面模板
+const commonChunks = []; // 自定义组件
 
 /**
  * 按规则生成entry 及 html plugin
@@ -36,15 +38,35 @@ const pageHtml = [];  // 页面模板
   });
 }();
 
+/**
+ * 生自定义组件打包使用的数组
+ * array
+ */
+!function generateCommonChunks(folder) {
+  const comps = fs.readdirSync(folder);
+  comps.forEach(function (name, index) {
+    const url = path.join(folder, name);
+    if (fs.statSync(url).isDirectory()) {
+      generateCommonChunks(url);
+    } else {
+      const ext = path.extname(url).substring(1);
+      if (ext.toLowerCase() === 'js') {
+        commonChunks.push(path.join(__dirname, url));
+      }
+    }
+  });
+}(componentsRoot);
+
+console.log(commonChunks);
 const config = {
   // 入口
   entry: Object.assign(pageEntry, {
-    'vendor': [ // 将所有第3方模块提取到一个chunk  - vendor
+    // 将所有第3方模块提取到一个chunk  - vendor
+    'vendor': [ 
       'lodash',
     ],
-    'common': [ // 将自己写的所有通用模块提取到一个chunk  - common
-      './src/components/comp'
-    ],
+    // 将自己写的所有通用模块提取到一个chunk  - common
+    'common': commonChunks,
   }),
   // 输出
   output: {
