@@ -8,6 +8,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const baseConfig = require('./webpack.config');
 
 const env = process.env.NODE_ENV;
@@ -17,8 +18,8 @@ const config = {
   devtool: 'nosources-source-map',
   // 输出 生成环境 添加 chunkhash
   output: {
-    filename: 'js/[name].js?hash=[chunkhash:8]',
-    chunkFilename: 'js/[name].js?hash=[chunkhash:8]', //  非[entry]入口文件名，默认[id].js
+    filename: 'js/[name].[chunkhash:8].js',
+    chunkFilename: 'js/[name].[chunkhash:8].js', //  非[entry]入口文件名，默认[id].js
   },
   module: {
     // loaders
@@ -56,7 +57,7 @@ const config = {
     new CleanWebpackPlugin(['dist']),
     // 提取css
     new ExtractTextPlugin({
-      filename: 'css/[name].min.css?hash=[contenthash:8]',
+      filename: 'css/[name].[contenthash:8].min.css',
       allChunks: true,
     }),
     // 忽略 moment 的本地化内容 ( 说明参看 http://www.css88.com/doc/webpack/plugins/ignore-plugin/ )
@@ -71,8 +72,16 @@ const config = {
       },
       sourceMap: true,
     }),
-    // 在文件最好前面添加bannber
+    // 在文件最前面添加bannber
     new webpack.BannerPlugin('author: CodeCook[t_fate@163.com]'),
+    // 静态 gzip | http 服务器需要开启  gzip_static 功能
+    new CompressionWebpackPlugin({
+      asset: '[path].gz',
+      algorithm: 'gzip',
+      test: /\.(js|css)$/,
+      threshold: 10240,
+      minRatio: 0.8
+    }),
   ],
 };
 
