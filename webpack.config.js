@@ -106,7 +106,7 @@ const config = {
               outputPath: function (path) {
                 return path.replace('src/pages', 'images');
               },
-              name: '[path][name].[ext]?[hash:8]',
+              name: '[path][name].[hash:8].[ext]',
             },
           },
         ],
@@ -117,7 +117,7 @@ const config = {
           {
             loader: 'file-loader',
             options: {
-              name: 'font/[name].[ext]?[hash:8]'
+              name: 'font/[name].[hash:8].[ext]'
             }
           }
         ],
