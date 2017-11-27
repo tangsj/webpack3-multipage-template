@@ -32,6 +32,10 @@ const commonChunks = []; // 自定义组件
         filename: `${pagesRoot.replace('./src/', '')}/${name}/index.html`,
         template: `${pagesRoot}/${name}/index.html`,
         chunks: ['vendor', 'common', name],
+        inject: 'body',
+        minify: {
+          collapseWhitespace: true,
+        },
       });
       pageHtml.push(hwp);
     } 
