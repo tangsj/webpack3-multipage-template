@@ -25,12 +25,14 @@
 
 ```json
 "scripts": {
-    "ds": "node_modules/.bin/webpack-dashboard -- cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.js",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.js",
-    "build": "cross-env NODE_ENV=production node_modules/.bin/webpack --config webpack.prod.js"
+  "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.js",
+  "dev:db": "node_modules/.bin/webpack-dashboard -- cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.js",
+  "build": "cross-env NODE_ENV=production node_modules/.bin/webpack --config webpack.prod.js",
+  "build:report": "cross-env NODE_ENV=production REPORT=true node_modules/.bin/webpack --config webpack.prod.js"
 }
 ```
-我们看到 scripts 我们建立了3条命令，主要用到的是dev 和 build,  dev主要用于我们开发环境的构建 ，build主要用于我们生产环境的构建。  ds也是用于开发环境的构建，但是它使用的是 [webpack-dashboard](https://github.com/FormidableLabs/webpack-dashboard) 来启动的项目，这样有一个更好看的控制台输也界面.
+我们看到 scripts 我们建立了4条命令，主要用到的是dev 和 build,  dev主要用于我们开发环境的构建 ，build主要用于我们生产环境的构建。  dev:db也是用于开发环境的构建，但是它使用的是 [webpack-dashboard](https://github.com/FormidableLabs/webpack-dashboard) 来启动的项目，这样有一个更好看的控制台输也界面.
+build:report"会利用`webpack-bundle-analyzer`生成文件体积分析表
 
 [cross-env](https://github.com/kentcdodds/cross-env) 是一个用于解决unix平台和windows平台设置NODE_ENV方法不一致而使用的. 注：windows设置使用的 set 命令，而unix平台使用的是export命令。
 

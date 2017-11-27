@@ -75,14 +75,22 @@ const config = {
     // 在文件最前面添加bannber
     new webpack.BannerPlugin('author: CodeCook[t_fate@163.com]'),
     // 静态 gzip | http 服务器需要开启  gzip_static 功能
+    // nginx 配置参看 http://www.tangsj.com/post/7
     new CompressionWebpackPlugin({
       asset: '[path].gz',
       algorithm: 'gzip',
       test: /\.(js|css)$/,
       threshold: 10240,
-      minRatio: 0.8
+      minRatio: 0.8,
     }),
   ],
 };
+
+// 执行 npm run build:report
+if (process.env.REPORT) {
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+  // 打包体积分析 
+  config.plugins.push(new BundleAnalyzerPlugin());
+}
 
 module.exports = merge(baseConfig, config);

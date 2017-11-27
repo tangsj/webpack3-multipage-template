@@ -4,9 +4,10 @@
   "description": "webpack3多页面开发项目配置",
   "main": "index.js",
   "scripts": {
-    "ds": "node_modules/.bin/webpack-dashboard -- cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.js",
-    "build": "cross-env NODE_ENV=production node_modules/.bin/webpack --config webpack.prod.js"
+    "dev:db": "node_modules/.bin/webpack-dashboard -- cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.js",
+    "build": "cross-env NODE_ENV=production node_modules/.bin/webpack --config webpack.prod.js",
+    "build:report": "cross-env NODE_ENV=production REPORT=true node_modules/.bin/webpack --config webpack.prod.js"
   },
   "author": "tangsj",
   "license": "MIT",
@@ -31,6 +32,7 @@
     "style-loader": "^0.19.0",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",
+    "webpack-bundle-analyzer": "^2.9.1",
     "webpack-dashboard": "^1.0.2",
     "webpack-dev-server": "^2.9.4",
     "webpack-merge": "^4.1.1"
