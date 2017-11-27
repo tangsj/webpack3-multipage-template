@@ -44,17 +44,16 @@
 ```js
 // 入口
 entry: Object.assign(pageEntry, {
-  'vendor': [ // 将所有第3方模块提取到一个chunk  - vendor
+  // 将所有第3方模块提取到一个chunk  - vendor
+  'vendor': [ 
     'lodash',
   ],
-  'common': [ // 将自己写的所有通用模块提取到一个chunk  - common
-    './src/components/comp'
-  ],
-}),
+  // 将自己写的所有通用模块提取到一个chunk  - common
+  'common': commonChunks,
+})
 ```
-vendor 和 common 我在代码中已给出了注释，common有一点需要指出：目前我们使用的是手动的忘里面添加内容，意味着我们添加一个组件就需要在array中去添加，这样有点麻烦，可以参考pageEntry生成的形式来生成里面的内容。
 
-pageEntry的生成我们借住于nodejs提供的文件系统操作能力, 具体请阅读 `generateEntryAndHtml` 方法。
+pageEntry与commonChunks的生成我们借住于nodejs提供的文件系统操作能力, 具体请阅读 `generateEntryAndHtml`、`generateCommonChunks` 方法。
 
 入口创建好了，每一个页面级入口我们都需要给他一个对应的 `HtmlWebpackPlugin`, 所以在generateEntryAndHtml中我们对应的都会 `new HtmlWebpackPlugin`, 然后把对应全部放在 pageHtml 存储。 最好后在plugins 位置通过数组的concat方法将配置加进去。
 
