@@ -1,1 +1,6 @@
-body{ background: url(./source/avatar.jpg) no-repeat #333666; display: flex; }
+.page-home{ 
+  background: url(./source/avatar.jpg) no-repeat #333666; background-size: 750px; display: flex; font-size: 24px;
+  .copy{
+    color: red;
+  }
+}

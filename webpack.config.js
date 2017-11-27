@@ -32,7 +32,7 @@ const commonChunks = []; // 自定义组件
         filename: `${pagesRoot.replace('./src/', '')}/${name}/index.html`,
         template: `${pagesRoot}/${name}/index.html`,
         chunks: ['vendor', 'common', name],
-        inject: 'body',
+        inject: 'head',
         minify: {
           collapseWhitespace: true,
         },
@@ -66,6 +66,7 @@ const config = {
   entry: Object.assign(pageEntry, {
     // 将所有第3方模块提取到一个chunk  - vendor
     'vendor': [ 
+      'amfe-flexible',
       'lodash',
     ],
     // 将自己写的所有通用模块提取到一个chunk  - common
