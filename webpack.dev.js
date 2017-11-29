@@ -33,7 +33,7 @@ const config = {
     inline: true,
     historyApiFallback: true,
     open: true,
-    openPage: 'pages/home/index.html',
+    openPage: 'index.html',
     //  http-proxy-middleware
     proxy: {},
   },

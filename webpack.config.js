@@ -7,75 +7,23 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const pagesRoot = './src/pages';
-const componentsRoot = './src/components';
 const env = process.env.NODE_ENV;
-
-const pageEntry = {}; // 页面入口
-const pageHtml = [];  // 页面模板
-const commonChunks = []; // 自定义组件
-
-/**
- * 按规则生成entry 及 html plugin
- * 在 pages 目录的一个目录表示一个页面
- * 页面目录下必须包含一个 index.html(模板) 和 index.js(入口)
- * 其它比如图片，css及页面模块也放在该目录下引用即可
- */
-!function generateEntryAndHtml() {
-  const pages = fs.readdirSync(pagesRoot);
-  pages.forEach(function (name, index) {
-    const url = path.join(__dirname, pagesRoot, name);
-    if (fs.statSync(url).isDirectory()) {
-      pageEntry[name] = `${pagesRoot}/${name}`;
-
-      const hwp = new HtmlWebpackPlugin({
-        filename: `${pagesRoot.replace('./src/', '')}/${name}/index.html`,
-        template: `${pagesRoot}/${name}/index.html`,
-        chunks: ['vendor', 'common', name],
-        inject: 'body',
-        minify: {
-          collapseWhitespace: true,
-        },
-      });
-      pageHtml.push(hwp);
-    } 
-  });
-}();
-
-/**
- * 生自定义组件打包使用的数组
- * array
- */
-!function generateCommonChunks(folder) {
-  const comps = fs.readdirSync(folder);
-  comps.forEach(function (name, index) {
-    const url = path.join(folder, name);
-    if (fs.statSync(url).isDirectory()) {
-      generateCommonChunks(url);
-    } else {
-      const ext = path.extname(url).substring(1);
-      if (ext.toLowerCase() === 'js') {
-        commonChunks.push(path.join(__dirname, url));
-      }
-    }
-  });
-}(componentsRoot);
 
 const config = {
   // 入口
-  entry: Object.assign(pageEntry, {
+  entry: {
+    'main': './src/js/index.js',
     // 将所有第3方模块提取到一个chunk  - vendor
-    'vendor': [ 
+    'vendor': [
+      'amfe-flexible',
       'lodash',
     ],
-    // 将自己写的所有通用模块提取到一个chunk  - common
-    'common': commonChunks,
-  }),
+  },
   // 输出
   output: {
     sourceMapFilename: '[file].map',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: '',
   },
   resolve: {
     // 快捷访问
@@ -103,7 +51,7 @@ const config = {
             options: {
               limit: 8192,
               outputPath: function (path) {
-                return path.replace('src/pages', 'images');
+                return path.replace('src/', '');
               },
               name: '[path][name].[hash:8].[ext]',
             },
@@ -146,9 +94,19 @@ const config = {
     new webpack.optimize.CommonsChunkPlugin({
       // 这里的顺序和html里面生成的script 标签顺序有关系
       // 这样生成的script 顺序是  vendor -> common
-      names: ['common', 'vendor'], 
+      names: ['vendor'], 
     }),
-  ].concat(pageHtml),
+
+    new HtmlWebpackPlugin({
+      // filename: 'index.html',
+      template: './src/index.html',
+      chunks: ['vendor', 'main'],
+      inject: 'body',
+      minify: {
+        collapseWhitespace: true,
+      },
+    }),
+  ],
 };
 
 module.exports = config;

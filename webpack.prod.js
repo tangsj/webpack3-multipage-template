@@ -28,6 +28,7 @@ const config = {
         test: /\.css$/i,
         // css提取文件后， 代码热替换会失效(开发环境建议不使用)
         use: ExtractTextPlugin.extract({
+          publicPath: '../',
           fallback: 'style-loader',
           use: [
             {
