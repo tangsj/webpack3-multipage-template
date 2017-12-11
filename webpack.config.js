@@ -97,7 +97,7 @@ const config = {
     // loaders
     rules: [
       {
-        test: /\.(png|jpe?g|gif|svg)$/i,
+        test: /\.(png|jpe?g|gif|svg|mp[3,4])$/i,
         use: [
           {
             loader: 'url-loader',
