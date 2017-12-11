@@ -97,6 +97,15 @@ const config = {
     // loaders
     rules: [
       {
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader',
+          options: {
+            attrs: [':data-src', 'img:src', 'video:src', 'source:src'],
+          },
+        },
+      },
+      {
         test: /\.(png|jpe?g|gif|svg|mp[3,4])$/i,
         use: [
           {
