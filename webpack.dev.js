@@ -56,6 +56,11 @@ const config = {
   },
   // 插件
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('development'),
+      },
+    }),
     // 开发环境代码热替换
     new webpack.HotModuleReplacementPlugin(),
     // 控制台输出美化
