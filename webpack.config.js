@@ -48,7 +48,7 @@ const config = {
         use: {
           loader: 'html-loader',
           options: {
-            attrs: [':data-src', 'img:src', 'audio:src', 'video:src', 'source:src'],
+            attrs: [':data-src', 'img:src', 'audio:src', 'video:src', 'video:poster', 'source:src'],
           },
         },
       },
