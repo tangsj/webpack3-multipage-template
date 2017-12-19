@@ -139,7 +139,6 @@ const config = {
           options: {
             presets: [
               'env',
-              'stage-3', // https://babeljs.io/docs/plugins/preset-stage-3/ 主要应用：transform-async-generator-functions
             ],
             plugins: [
               'transform-runtime'
