@@ -34,7 +34,10 @@ const config = {
     // 自动匹配文件后缀顺序
     extensions: ['.js', '.json', '.css'],
     // 模块搜索目录
-    modules: [path.join(__dirname, 'src'), 'node_modules'],
+    modules: [
+      path.join(__dirname, 'src'),
+      path.join(__dirname, 'node_modules'),
+    ],
   },
   module: {
     // 不解析
