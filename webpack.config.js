@@ -80,6 +80,7 @@ const config = {
       },
       {
         test: /\.js$/i,
+        include: path.resolve(__dirname, 'src'),
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
