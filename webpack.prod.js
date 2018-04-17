@@ -34,6 +34,7 @@ const config = {
             {
               loader: 'css-loader',
               options: {
+                minimize: true,
                 sourceMap: true,
               },
             },
@@ -90,7 +91,7 @@ const config = {
 // 执行 npm run build:report
 if (process.env.REPORT) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-  // 打包体积分析 
+  // 打包体积分析
   config.plugins.push(new BundleAnalyzerPlugin());
 }
 
