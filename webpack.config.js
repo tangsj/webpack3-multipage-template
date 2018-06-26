@@ -13,11 +13,6 @@ const config = {
   // 入口
   entry: {
     'main': './src/js/index.js',
-    // 将所有第3方模块提取到一个chunk  - vendor
-    'vendor': [
-      'amfe-flexible',
-      'lodash',
-    ],
   },
   // 输出
   output: {
@@ -38,6 +33,19 @@ const config = {
       path.join(__dirname, 'src'),
       path.join(__dirname, 'node_modules'),
     ],
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {   // 抽离第三方插件
+          test: /node_modules/,   // 指定是node_modules下的第三方包
+          chunks: 'initial',
+          name: 'vendor',  // 打包后的文件名，任意命名
+          // 设置优先级，防止和自定义的公共代码提取时被覆盖，不进行打包
+          priority: 10
+        },
+      },
+    },
   },
   module: {
     // 不解析
@@ -102,17 +110,8 @@ const config = {
   },
   // 插件
   plugins: [
-    // 提取公用文件
-    new webpack.optimize.CommonsChunkPlugin({
-      // 这里的顺序和html里面生成的script 标签顺序有关系
-      // 这样生成的script 顺序是  vendor -> common
-      names: ['vendor'], 
-    }),
-
     new HtmlWebpackPlugin({
-      // filename: 'index.html',
       template: './src/index.html',
-      chunks: ['vendor', 'main'],
       inject: 'body',
       minify: {
         collapseWhitespace: true,

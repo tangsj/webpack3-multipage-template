@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const baseConfig = require('./webpack.config');
@@ -26,23 +26,26 @@ const config = {
     rules: [
       {
         test: /\.css$/i,
-        // css提取文件后， 代码热替换会失效(开发环境建议不使用)
-        use: ExtractTextPlugin.extract({
-          publicPath: '../',
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                minimize: true,
-                sourceMap: true,
-              },
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              // you can specify a publicPath here
+              // by default it use publicPath in webpackOptions.output
+              publicPath: '../',
+            }
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: true,
+              sourceMap: true,
             },
-            {
-              loader: 'postcss-loader',
-            },
-          ],
-        }),
+          },
+          {
+            loader: 'postcss-loader',
+          },
+        ],
       },
     ],
   },
@@ -58,22 +61,12 @@ const config = {
     // 清理dist目录
     new CleanWebpackPlugin(['dist']),
     // 提取css
-    new ExtractTextPlugin({
-      filename: 'css/[name].[contenthash:8].min.css',
-      allChunks: true,
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].[contenthash:8].css',
+      chunkFilename: '[id].css',
     }),
     // 忽略 moment 的本地化内容 ( 说明参看 http://www.css88.com/doc/webpack/plugins/ignore-plugin/ )
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    // js 丑化压缩
-    new webpack.optimize.UglifyJsPlugin({
-      uglifyOptions: { // 感觉这里的参数配置没有起作用
-        output: {
-          comments: false,
-          beautify: false,
-        },
-      },
-      sourceMap: true,
-    }),
     // 在文件最前面添加bannber
     new webpack.BannerPlugin('author: CodeCook[t_fate@163.com]'),
     // 静态 gzip | http 服务器需要开启  gzip_static 功能

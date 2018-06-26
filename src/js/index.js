@@ -1,4 +1,6 @@
+import 'amfe-flexible';
 import _ from 'lodash';
+
 import '../css/index.css';
 import m from './page_module';
 import c from '@c/comp';
